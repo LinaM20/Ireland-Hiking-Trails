@@ -1,0 +1,39 @@
+//
+//  TrailService.swift
+//  IrelandHikingTrails
+//
+//  Created by Lina Mir on 24/04/2026.
+//
+
+import Foundation
+
+class HikingTrailService {
+    func fetchTrails() async throws -> [HikingTrailAttributes] {
+        let baseURL = "https://services-eu1.arcgis.com/CltcWyRoZmdwaB7T/ArcGIS/rest/services/GetIrelandActiveTrailRoutes/FeatureServer/0/query"
+        
+        guard var components = URLComponents(string: baseURL) else {
+            throw URLError(.badURL)
+        }
+        
+        components.queryItems = [
+            URLQueryItem(name: "where", value: "1=1"),
+            URLQueryItem(name: "outFields", value: "Name, County, Description, NearestTownStart"),
+            URLQueryItem(name: "f", value: "json")
+        ]
+        
+        guard let url = components.url else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let decodedResponse = try JSONDecoder().decode(HikingTrailResponse.self, from: data)
+        
+        return decodedResponse.features.map { $0.attributes }
+        
+    }
+}
