@@ -11,7 +11,7 @@ import SwiftUI
 struct IrelandHikingTrailsApp: App {
     var body: some Scene {
         WindowGroup {
-            HikingTrailListView()
+            AllTrailsMainView()
         }
     }
 }

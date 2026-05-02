@@ -6,9 +6,8 @@
 //
 
 import SwiftUI
-struct HikingTrailMainView: View {
+struct  AllTrailsMainView: View {
     @State private var viewModel = HikingTrailViewModel()
-    @State private var isLoading: Bool = true
             
     var body: some View {
         VStack {
@@ -16,13 +15,16 @@ struct HikingTrailMainView: View {
                 .font(.largeTitle)
             
             if viewModel.isLoading {
-                HikingTrailSkeletonListView()
+                AllTrailsSkeletonListView()
             } else {
-                HikingTrailListView()
+                AllTrailsListView(viewModel: viewModel)
             }
+        }
+        .task {
+            await viewModel.loadTrails()
         }
     }
 }
 
-#Preview { HikingTrailMainView() }
+#Preview { AllTrailsMainView() }
 

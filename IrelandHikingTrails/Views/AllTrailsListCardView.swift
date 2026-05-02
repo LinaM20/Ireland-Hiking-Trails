@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct HikingTrailListCardView: View {
+struct AllTrailsListCardView: View {
     
     enum Constants {
         static let cardPadding: CGFloat = 15

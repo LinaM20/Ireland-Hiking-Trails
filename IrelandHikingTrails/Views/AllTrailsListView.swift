@@ -6,9 +6,8 @@
 //
 import SwiftUI
 
-struct HikingTrailListView: View {
-    @State private var viewModel = HikingTrailViewModel()
-    @State private var isLoading: Bool = true
+struct AllTrailsListView: View {
+    let viewModel: HikingTrailViewModel
     
     var groupedTrails: [String: [HikingTrailAttributes]] {
         Dictionary(grouping: viewModel.hikingTrails, by: { $0.County ?? "Unknown"})
@@ -21,7 +20,7 @@ struct HikingTrailListView: View {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(groupedTrails[county] ?? []) { trail in
-                                HikingTrailListCardView(
+                                AllTrailsListCardView(
                                     title: trail.Name ?? "Unknown Name",
                                     county: trail.County ?? "Unknown County",
                                     description: trail.Description ?? "Unknown Description"
@@ -38,13 +37,10 @@ struct HikingTrailListView: View {
             }
         }
         .listStyle(.plain)
-        .task {
-            await viewModel.loadTrails()
-        }
     }
 }
 
 #Preview {
-    HikingTrailMainView()
+    AllTrailsMainView()
 }
 
