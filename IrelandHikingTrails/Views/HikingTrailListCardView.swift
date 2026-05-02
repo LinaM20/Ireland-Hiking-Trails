@@ -52,5 +52,3 @@ struct HikingTrailListCardView: View {
         .padding(.horizontal, 4)
     }
 }
-
-#Preview { HikingTrailListView() }

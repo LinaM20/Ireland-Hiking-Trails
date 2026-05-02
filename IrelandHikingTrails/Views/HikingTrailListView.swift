@@ -1,11 +1,11 @@
 //
-//  ContentView.swift
+//  HikingTrailListView.swift
 //  IrelandHikingTrails
 //
-//  Created by Lina Mir on 10/04/2026.
+//  Created by Lina Mir on 02/05/2026.
 //
-
 import SwiftUI
+
 struct HikingTrailListView: View {
     @State private var viewModel = HikingTrailViewModel()
     @State private var isLoading: Bool = true
@@ -13,40 +13,38 @@ struct HikingTrailListView: View {
     var groupedTrails: [String: [HikingTrailAttributes]] {
         Dictionary(grouping: viewModel.hikingTrails, by: { $0.County ?? "Unknown"})
     }
-            
+    
     var body: some View {
-        VStack {
-            Text("Ireland Hiking Trails").font(Font.largeTitle)
-            List {
-                ForEach(groupedTrails.keys.sorted(), id: \.self) { county in
-                    Section {
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(groupedTrails[county] ?? []) { trail in
-                                    HikingTrailListCardView(
-                                        title: trail.Name ?? "Unknown Name",
-                                        county: trail.County ?? "Unknown County",
-                                        description: trail.Description ?? "Unknown Description"
-                                    )
-                                }
+        List {
+            ForEach(groupedTrails.keys.sorted(), id: \.self) { county in
+                Section {
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(groupedTrails[county] ?? []) { trail in
+                                HikingTrailListCardView(
+                                    title: trail.Name ?? "Unknown Name",
+                                    county: trail.County ?? "Unknown County",
+                                    description: trail.Description ?? "Unknown Description"
+                                )
                             }
                         }
-                    } header: {
-                        Text(county)
-                            .font(.title2)
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    
+                } header: {
+                    Text(county)
+                        .font(.title2)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .listStyle(.plain)
         }
+        .listStyle(.plain)
         .task {
             await viewModel.loadTrails()
         }
     }
 }
 
-#Preview { HikingTrailListView() }
+#Preview {
+    HikingTrailMainView()
+}
 
