@@ -23,7 +23,7 @@ struct AllTrailsListView: View {
                                 AllTrailsListCardView(
                                     title: trail.Name ?? "Unknown Name",
                                     county: trail.County ?? "Unknown County",
-                                    description: trail.Description ?? "Unknown Description"
+                                    description: trail.Description ?? "Unknown Description", isLoading: viewModel.isLoading
                                 )
                             }
                         }

@@ -13,30 +13,43 @@ struct AllTrailsListCardView: View {
         static let cardRadius: CGFloat = 10
         static let cardShadowRadius: CGFloat = 5
         static let cardHeight: CGFloat = 340
+        static let skeletonCornerRadius: CGFloat = 6
+        static let skeletonHeight: CGFloat = 20
+        static let skeletonButton: CGFloat = 150
     }
     
     let title: String
     let county: String
     let description: String
+    let isLoading: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(title)
-                .font(Font.title)
-                .padding(Constants.cardPadding)
-                .fixedSize(horizontal: false, vertical: true)
-            
             VStack(alignment: .leading) {
+                Text(title)
+                    .font(Font.title)
+                    .fixedSize(horizontal: false, vertical: true)
                 Text(county)
                     .font(Font.headline)
-                Text(description)
-                    .font(Font.subheadline)
+
             }
             .padding(Constants.cardPadding)
             
+            Text(description)
+            .font(Font.subheadline)
+            .padding(Constants.cardPadding)
+
             Spacer()
-            
-            Button("More Info") {
+            Button {
+            } label: {
+                if isLoading {
+                    RoundedRectangle(cornerRadius: Constants.skeletonCornerRadius)
+                        .fill(Color.secondary.opacity(0.1))
+                        .frame(width: Constants.skeletonButton, height: Constants.skeletonHeight)
+                        .redacted(reason: .placeholder)
+                } else {
+                    Text("View Details")
+                }
             }
             .padding(Constants.cardPadding)
         }
