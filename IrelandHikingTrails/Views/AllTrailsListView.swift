@@ -20,7 +20,7 @@ struct AllTrailsListView: View {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(groupedTrails[county] ?? []) { trail in
-                                AllTrailsListCardView(
+                                AllTrailsCardView(
                                     title: trail.Name ?? "Unknown Name",
                                     county: trail.County ?? "Unknown County",
                                     description: trail.Description ?? "Unknown Description", isLoading: viewModel.isLoading

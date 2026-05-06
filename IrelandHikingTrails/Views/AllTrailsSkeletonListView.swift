@@ -20,7 +20,7 @@ struct AllTrailsSkeletonListView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
                             ForEach(0..<Constants.cardsPerRow, id: \.self) { _ in
-                                AllTrailsListCardView(title: "", county: "", description: "", isLoading: true)
+                                AllTrailsCardView(title: "", county: "", description: "", isLoading: true)
                             }
                         }
                         .padding(.vertical, 8)
