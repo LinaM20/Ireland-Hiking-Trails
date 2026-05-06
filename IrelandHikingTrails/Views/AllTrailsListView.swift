@@ -43,9 +43,9 @@ struct AllTrailsListView: View {
                 }
             }
             .listStyle(.plain)
-        }
-        .navigationDestination(for: HikingTrailAttributes.self) { trail in
-            TrailDetailsView()
+            .navigationDestination(for: HikingTrailAttributes.self) { trail in
+                TrailDetailsView(trail: trail)
+            }
         }
     }
 }

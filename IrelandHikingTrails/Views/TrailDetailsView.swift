@@ -8,7 +8,9 @@ import SwiftUI
 
 struct TrailDetailsView: View {
     
+    let trail: HikingTrailAttributes
+    
     var body: some View {
-        Text("TrailDetailsView")
+        Text("TrailDetailsView, \(trail.Name ?? "")")
     }
 }
