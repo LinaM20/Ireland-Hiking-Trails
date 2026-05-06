@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct AllTrailsListView: View {
+    @State private var path: [HikingTrailAttributes] = []
     let viewModel: HikingTrailViewModel
     
     var groupedTrails: [String: [HikingTrailAttributes]] {
@@ -14,29 +15,38 @@ struct AllTrailsListView: View {
     }
     
     var body: some View {
-        List {
-            ForEach(groupedTrails.keys.sorted(), id: \.self) { county in
-                Section {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(groupedTrails[county] ?? []) { trail in
-                                AllTrailsCardView(
-                                    title: trail.Name ?? "Unknown Name",
-                                    county: trail.County ?? "Unknown County",
-                                    description: trail.Description ?? "Unknown Description", isLoading: viewModel.isLoading
-                                )
+        NavigationStack(path: $path) {
+            List {
+                ForEach(groupedTrails.keys.sorted(), id: \.self) { county in
+                    Section {
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(groupedTrails[county] ?? []) { trail in
+                                    AllTrailsCardView(
+                                        title: trail.Name ?? "Unknown Name",
+                                        county: trail.County ?? "Unknown County",
+                                        description: trail.Description ?? "Unknown Description",
+                                        isLoading: viewModel.isLoading,
+                                        onViewDetails: {
+                                            path.append(trail)
+                                        }
+                                    )
+                                }
                             }
                         }
+                    } header: {
+                        Text(county)
+                            .font(.title2)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                } header: {
-                    Text(county)
-                        .font(.title2)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
+        .navigationDestination(for: HikingTrailAttributes.self) { trail in
+            TrailDetailsView()
+        }
     }
 }
 

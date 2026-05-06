@@ -14,7 +14,7 @@ struct HikingTrailFeature: Decodable {
     let attributes: HikingTrailAttributes
 }
 
-struct HikingTrailAttributes: Decodable, Identifiable {
+struct HikingTrailAttributes: Hashable, Decodable, Identifiable {
     let id = UUID()
     let Name: String?
     let County: String?

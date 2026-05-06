@@ -23,6 +23,8 @@ struct AllTrailsCardView: View {
     let description: String
     let isLoading: Bool
     
+    var onViewDetails:(() -> Void)?
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -41,6 +43,7 @@ struct AllTrailsCardView: View {
 
             Spacer()
             Button {
+                onViewDetails?()
             } label: {
                 if isLoading {
                     RoundedRectangle(cornerRadius: Constants.skeletonCornerRadius)
