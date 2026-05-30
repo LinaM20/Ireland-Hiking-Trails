@@ -5,6 +5,8 @@
 //  Created by Lina Mir on 10/04/2026.
 //
 
+//add search
+// favourites
 import SwiftUI
 struct  AllTrailsMainView: View {
     @State private var viewModel = HikingTrailViewModel()
@@ -14,10 +16,13 @@ struct  AllTrailsMainView: View {
             Text("Ireland Hiking Trails")
                 .font(.largeTitle)
             
-            if viewModel.isLoading {
+            switch viewModel.state {
+            case .loading:
                 AllTrailsSkeletonListView()
-            } else {
+            case .success:
                 AllTrailsListView(viewModel: viewModel)
+            case .errorState(let error):
+                Text(error)
             }
         }
         .task {

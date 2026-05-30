@@ -9,21 +9,19 @@ import Combine
 
 @Observable
 class HikingTrailViewModel {
+    var state: HikingTrailStates = .loading
     var hikingTrails: [HikingTrailAttributes] = []
-    var isLoading = true
     
     private let service = HikingTrailService()
     
     func loadTrails() async {
-        isLoading = true
-        //defer { isLoading = false }
         do {
             let fetchedTrails = try await service.fetchTrails()
             self.hikingTrails = fetchedTrails
+            state = .success
         } catch {
-            print("Error fetching trails: \(error)")
+            state = .errorState("Error fetching trails: \(error)")
         }
-        isLoading = false
     }
 }
 

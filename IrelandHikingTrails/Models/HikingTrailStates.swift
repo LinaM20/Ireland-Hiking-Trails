@@ -4,7 +4,7 @@
 //
 //  Created by Lina Mir on 06/05/2026.
 //
-enum HikingTrailStates {
+enum HikingTrailStates: Equatable {
     case loading
     case success
     case errorState(String)

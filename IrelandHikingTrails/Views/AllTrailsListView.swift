@@ -10,6 +10,7 @@ struct AllTrailsListView: View {
     @State private var path: [HikingTrailAttributes] = []
     let viewModel: HikingTrailViewModel
     
+    //manipulate the data to extra the unique counties
     var groupedTrails: [String: [HikingTrailAttributes]] {
         Dictionary(grouping: viewModel.hikingTrails, by: { $0.County ?? "Unknown"})
     }
@@ -26,7 +27,7 @@ struct AllTrailsListView: View {
                                         title: trail.Name ?? "Unknown Name",
                                         county: trail.County ?? "Unknown County",
                                         description: trail.Description ?? "Unknown Description",
-                                        isLoading: viewModel.isLoading,
+                                        state: viewModel.state,
                                         onViewDetails: {
                                             path.append(trail)
                                         }

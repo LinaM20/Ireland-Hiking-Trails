@@ -4,11 +4,22 @@
 //
 //  Created by Lina Mir on 24/04/2026.
 //
-
 import Foundation
 
 class HikingTrailService {
+    private let cacheTrails = "trails_cache.json"
+    
+    private var cacheURL: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(cacheTrails)
+    }
+    
     func fetchTrails() async throws -> [HikingTrailAttributes] {
+        
+        if let cachedData = try? Data(contentsOf: cacheURL) {
+            let decoder = JSONDecoder()
+            return try decoder.decode([HikingTrailAttributes].self, from: cachedData)
+        }
+        
         let baseURL = "https://services-eu1.arcgis.com/CltcWyRoZmdwaB7T/ArcGIS/rest/services/GetIrelandActiveTrailRoutes/FeatureServer/0/query"
         
         guard var components = URLComponents(string: baseURL) else {

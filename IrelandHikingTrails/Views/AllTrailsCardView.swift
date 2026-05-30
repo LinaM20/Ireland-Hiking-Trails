@@ -21,7 +21,7 @@ struct AllTrailsCardView: View {
     let title: String
     let county: String
     let description: String
-    let isLoading: Bool
+    let state: HikingTrailStates
     
     var onViewDetails:(() -> Void)?
     
@@ -45,7 +45,7 @@ struct AllTrailsCardView: View {
             Button {
                 onViewDetails?()
             } label: {
-                if isLoading {
+                if state == .loading {
                     RoundedRectangle(cornerRadius: Constants.skeletonCornerRadius)
                         .fill(Color.secondary.opacity(0.1))
                         .frame(width: Constants.skeletonButton, height: Constants.skeletonHeight)
