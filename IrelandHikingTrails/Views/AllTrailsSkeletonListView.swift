@@ -7,34 +7,23 @@
 import SwiftUI
 
 struct AllTrailsSkeletonListView: View {
-
-    enum Constants {
-        static let placeholderCounties: [String] = ["County One", "County Two", "County Three"]
-        static let cardsPerRow = 3
-    }
-    
     var body: some View {
         List {
-            ForEach(Constants.placeholderCounties, id: \.self) { county in
+            ForEach(0..<3, id: \.self) { _ in
                 Section {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
-                            ForEach(0..<Constants.cardsPerRow, id: \.self) { _ in
-                                AllTrailsCardView(title: "", county: "", description: "", state: .loading)
+                            ForEach(0..<3, id: \.self) { _ in
+                                SkeletonCard()
                             }
                         }
                         .padding(.vertical, 8)
                     }
-                } header: {
-                    Text(county)
-                        .font(.title2)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .redacted(reason: .placeholder)
                 }
             }
         }
         .listStyle(.plain)
+        .shimmering(when: true)
     }
 }
 
