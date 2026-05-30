@@ -8,23 +8,25 @@
 //add search
 // favourites
 import SwiftUI
-struct  AllTrailsMainView: View {
+
+struct AllTrailsMainView: View {
     @State private var viewModel = HikingTrailViewModel()
+    @State private var searchText: String = ""
             
     var body: some View {
-        VStack {
-            Text("Ireland Hiking Trails")
-                .font(.largeTitle)
-            
-            switch viewModel.state {
-            case .loading:
-                AllTrailsSkeletonListView()
-            case .success:
-                AllTrailsListView(viewModel: viewModel)
-            case .errorState(let error):
-                Text(error)
+        NavigationStack {
+            Group {
+                switch viewModel.state {
+                case .loading:
+                    AllTrailsSkeletonListView()
+                case .success:
+                    AllTrailsListView(viewModel: viewModel)
+                case .errorState(let error):
+                    Text(error)
+                }
             }
         }
+        .searchable(text: $searchText, placement: .navigationBarDrawer)
         .task {
             await viewModel.loadTrails()
         }

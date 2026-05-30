@@ -8,6 +8,7 @@ import SwiftUI
 
 struct AllTrailsListView: View {
     @State private var path: [HikingTrailAttributes] = []
+    @State private var searchText: String = ""
     let viewModel: HikingTrailViewModel
     
     var uniqueCounties: [String: [HikingTrailAttributes]] {
