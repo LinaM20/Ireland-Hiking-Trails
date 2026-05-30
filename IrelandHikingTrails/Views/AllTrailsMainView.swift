@@ -26,7 +26,7 @@ struct AllTrailsMainView: View {
                 }
             }
         }
-        .searchable(text: $searchText, placement: .navigationBarDrawer)
+        .searchable(text: Bindable(viewModel).searchText, placement: .navigationBarDrawer)
         .task {
             await viewModel.loadTrails()
         }

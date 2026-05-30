@@ -8,15 +8,12 @@ import SwiftUI
 
 struct AllTrailsListView: View {
     @State private var path: [HikingTrailAttributes] = []
-    @State private var searchText: String = ""
     let viewModel: HikingTrailViewModel
     
     var uniqueCounties: [String: [HikingTrailAttributes]] {
-        Dictionary(grouping: viewModel.hikingTrails) { trail in
-            let rawCounty = trail.County ?? "Unknown County"
-            let uniqueCounty = rawCounty.split(separator: ",")
-            return uniqueCounty.first?.trimmingCharacters(in: .whitespaces) ?? "Unknown County"
-        }
+        Dictionary(grouping: viewModel.filteredTrails) { trail in
+            let uniqueCounty = trail.County ?? "Unknown County"
+            return uniqueCounty.split(separator: ",").first?.trimmingCharacters(in: .whitespaces) ?? "Unknown County"        }
     }
     
     var body: some View {
