@@ -51,8 +51,3 @@ struct AllTrailsListView: View {
         }
     }
 }
-
-#Preview {
-    AllTrailsMainView()
-}
-

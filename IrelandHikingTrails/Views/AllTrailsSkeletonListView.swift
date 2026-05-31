@@ -26,7 +26,3 @@ struct AllTrailsSkeletonListView: View {
         .shimmering(when: true)
     }
 }
-
-#Preview {
-    AllTrailsMainView()
-}
