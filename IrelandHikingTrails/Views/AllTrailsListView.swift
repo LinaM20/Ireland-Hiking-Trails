@@ -34,7 +34,7 @@ struct AllTrailsListView: View {
                                     AllTrailsCardView(
                                         title: trail.Name ?? "Unknown Name",
                                         county: trail.County ?? "Unknown County",
-                                        description: trail.Description ?? "Unknown Description",
+                                        description: trail.Description ?? "No description available",
                                         state: viewModel.state,
                                         onViewDetails: {
                                             path.append(trail)

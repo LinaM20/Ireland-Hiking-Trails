@@ -12,6 +12,7 @@ struct IrelandHikingTrailsApp: App {
     var body: some Scene {
         WindowGroup {
             AllTrailsMainView()
+                .accentColor(.color)
         }
     }
 }
