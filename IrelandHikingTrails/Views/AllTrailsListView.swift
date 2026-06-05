@@ -10,20 +10,27 @@ struct AllTrailsListView: View {
     @State private var path: [HikingTrailAttributes] = []
     let viewModel: HikingTrailViewModel
     
-    var uniqueCounties: [String: [HikingTrailAttributes]] {
-        Dictionary(grouping: viewModel.filteredTrails) { trail in
-            let uniqueCounty = trail.County ?? "Unknown County"
-            return uniqueCounty.split(separator: ",").first?.trimmingCharacters(in: .whitespaces) ?? "Unknown County"        }
+    var countiesDict: [String: [HikingTrailAttributes]] {
+        var multiCountyTrails: [String: [HikingTrailAttributes]] = [:]
+        for trail in viewModel.filteredTrails {
+            let countyNames = trail.County ?? "Unknown County"
+            let counties = countyNames.split(separator: ",")
+            for countySegment in counties {
+                let cleanedCounty = countySegment.trimmingCharacters(in: .whitespaces)
+                multiCountyTrails[cleanedCounty, default: []].append(trail)
+            }
+        }
+        return multiCountyTrails
     }
     
     var body: some View {
         NavigationStack(path: $path) {
             List {
-                ForEach(uniqueCounties.keys.sorted(), id: \.self) { county in
+                ForEach(countiesDict.keys.sorted(), id: \.self) { county in
                     Section {
                         ScrollView(.horizontal) {
                             HStack {
-                                ForEach(uniqueCounties[county] ?? []) { trail in
+                                ForEach(countiesDict[county] ?? []) { trail in
                                     AllTrailsCardView(
                                         title: trail.Name ?? "Unknown Name",
                                         county: trail.County ?? "Unknown County",

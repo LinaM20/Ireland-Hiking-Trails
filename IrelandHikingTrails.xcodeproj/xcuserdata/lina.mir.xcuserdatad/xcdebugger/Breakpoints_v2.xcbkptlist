@@ -3,4 +3,52 @@
    uuid = "7CC9B6E7-0ABF-4ACA-A652-DD80D6E76A7F"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F0469C74-E869-4DB9-9CB7-A77CBFE50D96"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IrelandHikingTrails/Views/AllTrailsListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "countiesDict"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "F0469C74-E869-4DB9-9CB7-A77CBFE50D96 - af30b4a343e09022"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IrelandHikingTrails.AllTrailsListView.uniqueCounties.getter : Swift.Dictionary&lt;Swift.String, Swift.Array&lt;IrelandHikingTrails.HikingTrailAttributes&gt;&gt;"
+                  moduleName = "IrelandHikingTrails.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lina.mir/Documents/Study/IrelandHikingTrails/IrelandHikingTrails/Views/AllTrailsListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+               <Location
+                  uuid = "F0469C74-E869-4DB9-9CB7-A77CBFE50D96 - 3da6d3404b213417"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IrelandHikingTrails.AllTrailsListView.countiesDict.getter : Swift.Dictionary&lt;Swift.String, Swift.Array&lt;IrelandHikingTrails.HikingTrailAttributes&gt;&gt;"
+                  moduleName = "IrelandHikingTrails.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lina.mir/Documents/Study/IrelandHikingTrails/IrelandHikingTrails/Views/AllTrailsListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
