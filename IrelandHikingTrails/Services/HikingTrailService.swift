@@ -16,8 +16,8 @@ class HikingTrailService {
     func fetchTrails() async throws -> [HikingTrailAttributes] {
         
         if let cachedData = try? Data(contentsOf: cacheURL) {
-            let decoder = JSONDecoder()
-            return try decoder.decode([HikingTrailAttributes].self, from: cachedData)
+            let decoded = try JSONDecoder().decode(HikingTrailResponse.self, from: cachedData)
+            return decoded.features.map { $0.attributes }
         }
         
         let baseURL = "https://services-eu1.arcgis.com/CltcWyRoZmdwaB7T/ArcGIS/rest/services/GetIrelandActiveTrailRoutes/FeatureServer/0/query"
@@ -37,6 +37,8 @@ class HikingTrailService {
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
+        
+        try? data.write(to: cacheURL)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw URLError(.badServerResponse)
