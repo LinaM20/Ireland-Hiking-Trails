@@ -20,6 +20,7 @@ struct AllTrailsMainView: View {
                 .tabItem {
                     Label("Favourites", systemImage: "star")
                 }
+            
             ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
@@ -29,26 +30,29 @@ struct AllTrailsMainView: View {
 }
 
 private struct AllTrailsContentView: View {
-    @Bindable var viewModel: HikingTrailViewModel
+    let viewModel: HikingTrailViewModel
+    @State private var path: [HikingTrailAttributes] = []
 
     var body: some View {
-        NavigationStack {
-            Group {
+        NavigationStack(path: $path) {
+            VStack(spacing: 0) {
                 switch viewModel.state {
                 case .loading:
                     AllTrailsSkeletonListView()
                 case .success:
-                    AllTrailsListView(viewModel: viewModel)
+                    AllTrailsListView(path: $path, viewModel: viewModel)
                 case .errorState(let error):
                     Text(error)
                 }
             }
+            .navigationTitle("Ireland 🇮🇪 Hiking Trails")
+            .searchable(text: Bindable(viewModel).searchText, placement: .navigationBarDrawer)
+            .navigationDestination(for: HikingTrailAttributes.self) { selectedTrail in
+                TrailView(trail: selectedTrail)
+            }
         }
-        .searchable(text: Bindable(viewModel).searchText, placement: .navigationBarDrawer)
         .task {
             await viewModel.loadTrails()
         }
     }
 }
-
-#Preview { AllTrailsMainView() }

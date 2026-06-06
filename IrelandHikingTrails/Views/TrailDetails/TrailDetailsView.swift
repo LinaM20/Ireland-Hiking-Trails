@@ -2,15 +2,16 @@
 //  TrailDetailsView.swift
 //  IrelandHikingTrails
 //
-//  Created by Lina Mir on 04/05/2026.
+//  Created by Lina Mir on 06/06/2026.
 //
 import SwiftUI
 
 struct TrailDetailsView: View {
-    
+
     let trail: HikingTrailAttributes
-    
+    @Binding var currentHeight: CGFloat
+
     var body: some View {
-        Text("TrailDetailsView, \(trail.Name ?? "")")
+        Text(trail.Name ?? "none")
     }
 }

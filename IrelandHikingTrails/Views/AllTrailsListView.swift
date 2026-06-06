@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct AllTrailsListView: View {
-    @State private var path: [HikingTrailAttributes] = []
+    @Binding var path: [HikingTrailAttributes]
     let viewModel: HikingTrailViewModel
     
     var countiesDict: [String: [HikingTrailAttributes]] {
@@ -24,7 +24,6 @@ struct AllTrailsListView: View {
     }
     
     var body: some View {
-        NavigationStack(path: $path) {
             List {
                 ForEach(countiesDict.keys.sorted(), id: \.self) { county in
                     Section {
@@ -36,6 +35,7 @@ struct AllTrailsListView: View {
                                         county: trail.County ?? "Unknown County",
                                         description: trail.Description ?? "No description available",
                                         state: viewModel.state,
+                                        trail: trail,
                                         onViewDetails: {
                                             path.append(trail)
                                         }
@@ -52,9 +52,5 @@ struct AllTrailsListView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationDestination(for: HikingTrailAttributes.self) { trail in
-                TrailDetailsView(trail: trail)
-            }
-        }
     }
 }
