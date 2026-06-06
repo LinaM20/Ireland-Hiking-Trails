@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct TrailView: View {
+    @State private var isSheetPresented = true
     @State private var drawerHeight: CGFloat = 200
     
     let trail: HikingTrailAttributes
@@ -14,10 +15,10 @@ struct TrailView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             MapView()
-            
-            TrailDetailsView(trail: trail, currentHeight: $drawerHeight)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-                .zIndex(1)
+                .sheet(isPresented: $isSheetPresented) {
+                    TrailDetailsView(trail: trail, currentHeight: $drawerHeight)
+                        .presentationDetents([.medium, .large])
+                }
         }
     }
 }
