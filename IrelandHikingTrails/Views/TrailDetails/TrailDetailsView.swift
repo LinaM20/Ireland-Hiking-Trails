@@ -9,7 +9,6 @@ import SwiftUI
 struct TrailDetailsView: View {
 
     let trail: HikingTrailAttributes
-    @Binding var currentHeight: CGFloat
 
     var body: some View {
         Text(trail.Name ?? "none")

@@ -45,11 +45,13 @@ private struct AllTrailsContentView: View {
                     Text(error)
                 }
             }
-            .navigationTitle("Ireland 🇮🇪 Hiking Trails")
+            .navigationTitle("Ireland Hiking Trails")
             .searchable(text: Bindable(viewModel).searchText, placement: .navigationBarDrawer)
             .navigationDestination(for: HikingTrailAttributes.self) { selectedTrail in
                 TrailView(trail: selectedTrail)
+                
             }
+
         }
         .task {
             await viewModel.loadTrails()
